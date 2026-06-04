@@ -24,42 +24,92 @@
 // - 제출 방식
 //		- 리포지토리 링크와 플레이 영상 링크 올리기
 
-void Homework_Run(); 
+//void Homework_Run(); 
+//
+//class Ship
+//{
+//public:
+//	std::string Name = "배";
+//	int Size = 0;
+//	Ship() = default;
+//	Ship(const char* InName, int InSize)
+//		: Name(InName), Size(InSize)
+//	{ }
+//	~Ship() = default;
+//};
+//
+//class Map
+//{
+//public:
+//	int X = 0;
+//	int Y = 0;
+//
+//	int* ViewMap = nullptr;
+//	int* UseMap = nullptr;
+//
+//	Map() = default;
+//	Map(int InX, int InY)
+//		: X(InX), Y(InY)
+//	{
+//		ViewMap = new int[X * Y] {};
+//		UseMap = new int[X * Y] {};
+//	}
+//	~Map() 
+//	{
+//	}
+//
+//	void Cleanup();
+//};
+//
+//void Ship_Installation(Map& UseMap);
+//
+//void Map_Print(Map UseMap);
+//
+//int GetRandomRange(int Min, int Max);
+
+#include <string>
 
 class Ship
 {
 public:
-	std::string Name = "배";
-	int Size = 0;
+	std::string Name;
+	int Size;
+	int HP;
+	bool Sunk;
+
 	Ship() = default;
+
 	Ship(const char* InName, int InSize)
-		: Name(InName), Size(InSize)
-	{ }
-	~Ship() = default;
-};
-
-class Map
-{
-public:
-	int X = 0;
-	int Y = 0;
-	int* ViewMap = new int[X * Y];
-	int* UseMap = new int[X * Y];
-
-	Map() = default;
-	Map(int InX, int InY)
-		: X(InX), Y(InY)
-	{ 
-	}
-	~Map() 
+		: Name(InName), Size(InSize), HP(InSize), Sunk(false)
 	{
 	}
-
-	void Cleanup();
 };
 
-void Ship_Installation(Map& UseMap);
+class Game
+{
+private:
+	int UseMap[10][10] = {};
+	int ViewMap[10][10] = {};
 
-void Map_Print(Map UseMap);
+	Ship Ships[4] =
+	{
+		Ship("항공모함", 5),
+		Ship("전함", 4),
+		Ship("순양함", 3),
+		Ship("구축함", 2)
+	};
 
-int GetRandomRange(int Min, int Max);
+	int AttackCount = 30;
+
+public:
+	void Init();
+	void PlaceShips();
+	void PrintMap();
+	void Attack();
+	void CheckSunk(int ShipIndex);
+	bool IsWin();
+	void RevealMap();
+	void Run();
+};
+
+void Homework_Run();
