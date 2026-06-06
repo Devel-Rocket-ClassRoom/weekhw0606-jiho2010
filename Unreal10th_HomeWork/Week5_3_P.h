@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 // 1. 목표
 // - 플레이어는 컴퓨터가 숨겨놓은 적 함선을 찾아 격침시킨다.
 // 2. 맵 크기는 10 x 10이다.
@@ -24,51 +26,6 @@
 // - 제출 방식
 //		- 리포지토리 링크와 플레이 영상 링크 올리기
 
-//void Homework_Run(); 
-//
-//class Ship
-//{
-//public:
-//	std::string Name = "배";
-//	int Size = 0;
-//	Ship() = default;
-//	Ship(const char* InName, int InSize)
-//		: Name(InName), Size(InSize)
-//	{ }
-//	~Ship() = default;
-//};
-//
-//class Map
-//{
-//public:
-//	int X = 0;
-//	int Y = 0;
-//
-//	int* ViewMap = nullptr;
-//	int* UseMap = nullptr;
-//
-//	Map() = default;
-//	Map(int InX, int InY)
-//		: X(InX), Y(InY)
-//	{
-//		ViewMap = new int[X * Y] {};
-//		UseMap = new int[X * Y] {};
-//	}
-//	~Map() 
-//	{
-//	}
-//
-//	void Cleanup();
-//};
-//
-//void Ship_Installation(Map& UseMap);
-//
-//void Map_Print(Map UseMap);
-//
-//int GetRandomRange(int Min, int Max);
-
-#include <string>
-
 class Ship
 {
 public:
@@ -78,18 +35,17 @@ public:
 	bool Sunk;
 
 	Ship() = default;
-
 	Ship(const char* InName, int InSize)
 		: Name(InName), Size(InSize), HP(InSize), Sunk(false)
-	{
-	}
+	{ }
+	~Ship() = default;
 };
 
 class Game
 {
 private:
-	int UseMap[10][10] = {};
-	int ViewMap[10][10] = {};
+	int UseMap[10][10] = {0, };
+	int ViewMap[10][10] = {0, };
 
 	Ship Ships[4] =
 	{
@@ -100,9 +56,9 @@ private:
 	};
 
 	int AttackCount = 30;
+	int RemainShip = 4;
 
 public:
-	void Init();
 	void PlaceShips();
 	void PrintMap();
 	void Attack();
