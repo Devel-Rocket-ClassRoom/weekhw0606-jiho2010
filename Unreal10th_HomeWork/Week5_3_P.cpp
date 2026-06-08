@@ -53,7 +53,7 @@ void Game::PlaceShips()
 					CheckY = Y;
 				}
 
-				if (UseMap[CheckY][CheckX] != 0)
+				if (UseMap[CheckY][CheckX] != Empty)  // enum을 사용해서 이것이 무엇인지 알수있게 하기
 				{
 					CanPlace = false;
 					break;
@@ -80,7 +80,7 @@ void Game::PlaceShips()
 
 				if (PlaceX >= 0 && PlaceX < 10 && PlaceY >= 0 && PlaceY < 10)
 				{
-					UseMap[PlaceY][PlaceX] = ShipIndex + 1;
+					UseMap[PlaceY][PlaceX] = static_cast<Sea_Map>(ShipIndex + 1); // 캐스팅(자료형 변환)은 꼭 이렇게 해라
 				}
 			}
 
@@ -102,9 +102,9 @@ void Game::PrintMap()
 		
 		for (int x = 0; x < 10; x++)
 		{
-			if (ViewMap[y][x] == 0)
+			if (ViewMap[y][x] == Empty) // enum을 사용해서 이것이 무엇인지 알수있게 하기
 				printf(". ");
-			else if (ViewMap[y][x] == -1)
+			else if (ViewMap[y][x] == At_Empty) // enum을 사용해서 이것이 무엇인지 알수있게 하기
 				printf("O ");
 			else
 				printf("X ");
@@ -130,7 +130,7 @@ void Game::Attack()
 			printf("범위밖의 위치입니다.\n");
 			continue;
 		}
-		else if (ViewMap[Y][X] != 0)
+		else if (ViewMap[Y][X] != Empty) // enum을 사용해서 이것이 무엇인지 알수있게 하기
 		{
 			printf("이미 공격한 위치입니다.\n");
 			continue;
@@ -143,18 +143,18 @@ void Game::Attack()
 
 	AttackCount--;
 
-	if (UseMap[Y][X] == 0)
+	if (UseMap[Y][X] == Empty) // enum을 사용해서 이것이 무엇인지 알수있게 하기
 	{
 		printf("실패!\n");
-		ViewMap[Y][X] = -1;
+		ViewMap[Y][X] = At_Empty; // enum을 사용해서 이것이 무엇인지 알수있게 하기
 	}
 	else
 	{
 		printf("명중!\n");
 
-		ViewMap[Y][X] = 1;
+		ViewMap[Y][X] = Hit; // enum을 사용해서 이것이 무엇인지 알수있게 하기
 
-		int ShipIndex = UseMap[Y][X] - 1;
+		int ShipIndex = UseMap[Y][X] - 1; // enum을 사용해서 이것이 무엇인지 알수있게 하기
 
 		Ships[ShipIndex].HP--;
 
@@ -165,7 +165,7 @@ void Game::Attack()
 
 void Game::CheckSunk(int ShipIndex)
 {
-	if (Ships[ShipIndex].HP == 0 && Ships[ShipIndex].Sunk == false)
+	if (Ships[ShipIndex].HP == 0 && Ships[ShipIndex].Sunk == false) // HP 범위 증가(0이거나 그 밑으로)
 	{
 		Ships[ShipIndex].Sunk = true;
 		RemainShip--;
@@ -195,7 +195,7 @@ void Game::RevealMap()
 		else { printf("%d  ", y + 1); }
 		for (int x = 0; x < 10; x++)
 		{
-			if (UseMap[y][x] == 0){ printf(". "); }
+			if (UseMap[y][x] == 0){ printf(". "); } // enum을 사용해서 이것이 무엇인지 알수있게 하기
 			else { printf("%d ", UseMap[y][x]); }
 		}
 		printf("\n");

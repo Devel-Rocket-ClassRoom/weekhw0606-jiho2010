@@ -26,6 +26,17 @@
 // - 제출 방식
 //		- 리포지토리 링크와 플레이 영상 링크 올리기
 
+enum Sea_Map
+{
+	At_Empty = -1,
+	Empty = 0,
+	Hit = 1,
+	Ship4 = 2,
+	Ship3 = 3,
+	Ship2 = 4,
+	Ship1 = 5
+};
+
 class Ship
 {
 public:
@@ -44,8 +55,8 @@ public:
 class Game
 {
 private:
-	int UseMap[10][10] = {0, };
-	int ViewMap[10][10] = {0, };
+	Sea_Map UseMap[10][10] = { };
+	Sea_Map ViewMap[10][10] = { };
 
 	Ship Ships[4] =
 	{
